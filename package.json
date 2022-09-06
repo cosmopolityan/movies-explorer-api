@@ -1,0 +1,22 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "backend for Movies Explorer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmopolityan/movies-explorer-api.git"
+  },
+  "author": "Mark G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cosmopolityan/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/cosmopolityan/movies-explorer-api#readme"
+}

@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/cosmopolityan/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/cosmopolityan/movies-explorer-api#readme"
+  "homepage": "https://github.com/cosmopolityan/movies-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^6.5.4",
+    "validator": "^13.7.0"
+  }
 }

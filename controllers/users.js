@@ -2,11 +2,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models/user');
-const { classes } = require('../errors/classes'); // не забыть прописать
-const { names } = require('../errors/names'); // не забыть прописать
-const { StatusCodes } = require('../support/statusCodes'); // не забыть прописать
-const { messages } = require('../support/messages'); // не забыть прописать
-const { JWT_SECRET } = require('../support/constants'); // не забыть прописать
+const { classes, names } = require('../errors/index');
+const { StatusCodes } = require('../support/statusCodes');
+const { messages } = require('../support/messages');
+const { JWT_SECRET } = require('../support/constants');
 
 const {
   NotFoundError, BadRequestError, ConflictError, UnauthorizedError,

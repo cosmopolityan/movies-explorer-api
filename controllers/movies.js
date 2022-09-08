@@ -1,7 +1,6 @@
-const { Movie } = require('../models/movie'); // не забыть прописать
-const { classes } = require('../errors/classes'); // не забыть прописать
-const { names } = require('../errors/names'); // не забыть прописать
-const { StatusCodes } = require('../support/statusCodes'); // не забыть прописать
+const { Movie } = require('../models/movie');
+const { classes, names } = require('../errors/index');
+const { StatusCodes } = require('../support/statusCodes');
 
 const {
   NotFoundError, BadRequestError, ForbiddenError,

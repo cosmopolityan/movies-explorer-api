@@ -4,11 +4,11 @@ const { createUser, login, logout } = require('../controllers/users');
 
 const auth = require('../middlewares/auth');
 
-const { signInValidation, signUpValidation } = require('../middlewares/validation');
+const { validateRegister, validateLogin } = require('../middlewares/validation');
 
-const { NotFoundError } = require('../errors/classes'); // не забыть прописать
+const { NotFoundError } = require('../errors/classes'); //
 
-const { messages } = require('../support/messages'); // не забыть прописать
+const { messages } = require('../support/messages');
 
 router.get('/crash-test', () => {
   setTimeout(() => {
@@ -16,8 +16,8 @@ router.get('/crash-test', () => {
   }, 0);
 });
 
-router.post('/signin', signInValidation, login);
-router.post('/signup', signUpValidation, createUser);
+router.post('/signin', validateLogin, login);
+router.post('/signup', validateRegister, createUser);
 router.post('/signout', logout);
 
 router.use('/users', auth, require('./users'));

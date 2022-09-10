@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const rateLimiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
@@ -21,7 +20,7 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      /* %Добавить домен% , */
+      'https://movies.cosmopolityan.students.nomoredomains.sbs',
       'https://localhost:3000',
     ],
   }),

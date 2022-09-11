@@ -21,7 +21,7 @@ app.use(
     credentials: true,
     origin: [
       'https://movies.cosmopolityan.students.nomoredomains.sbs',
-      'https://localhost:3000',
+      'https://localhost:3000', //
     ],
   }),
 );

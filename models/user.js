@@ -24,8 +24,6 @@ const userSchema = new mongoose.Schema(
   { versionKey: false },
 );
 
-// в controllers/users.js сошлюсь сразу на "return User.findUserByCredentials":
-
 const rejectInvalidCredentials = () => Promise.reject(new Error('Неверный логин и/или пароль'));
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, enteredPassword) {
@@ -47,6 +45,4 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 };
 //
 
-const User = mongoose.model('user', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('user', userSchema);

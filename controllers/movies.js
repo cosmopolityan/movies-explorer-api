@@ -1,4 +1,4 @@
-const { Movie } = require('../models/movie');
+const Movie = require('../models/movie');
 const { classes, names } = require('../errors/index');
 const { StatusCodes } = require('../support/statusCodes');
 

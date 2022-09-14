@@ -38,7 +38,7 @@ const movieSchema = new mongoose.Schema(
       ref: 'user',
       required: true,
     },
-    movieId: {
+    movieId: { // не понимаю в чем проблема
       ...requiredString,
     },
     nameRU: {

@@ -28,12 +28,12 @@ const rejectInvalidCredentials = () => Promise.reject(new Error('Неверны�
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, enteredPassword) {
   return this.findOne({ email }).select('+password')
-    .then(({ password, ...user }) => {
+    .then((user) => {
       if (!user) {
         return rejectInvalidCredentials;
       }
 
-      return bcrypt.compare(enteredPassword, password)
+      return bcrypt.compare(enteredPassword, user.password)
         .then((matched) => {
           if (!matched) {
             return rejectInvalidCredentials;

@@ -1,12 +1,14 @@
 const Movie = require('../models/movie');
 const { classes, names } = require('../errors/index');
 const { StatusCodes } = require('../support/statusCodes');
+// const messages = require('../support/messages');
+const { ForbiddenError } = require('../errors/classes');
 
 const {
-  NotFoundError, BadRequestError, ForbiddenError,
+  NotFoundError, BadRequestError, /* ForbiddenError, */
 } = classes;
 
-const defaultPopulation = ['owner'];
+// const defaultPopulation = ['owner'];
 
 module.exports.createMovie = (req, res, next) => {
   const {
@@ -35,30 +37,33 @@ module.exports.createMovie = (req, res, next) => {
     movieId,
     nameRU,
     nameEN,
-    owner: req.user._id,
+    owner: req.user._id, //
   })
     .then((data) => res.status(StatusCodes.created).send({ data }))
     .catch((err) => next(err.name === names.Validation ? new BadRequestError() : err));
 };
 
-module.exports.getMovies = (req, res, next) => Movie.find({})
-  .populate(defaultPopulation)
-  .then((data) => res.send({ data }))
-  .catch(next);
+module.exports.getMovies = (req, res, next) => {
+  // Movie.find({})
+  // .populate(defaultPopulation)
+  Movie.find({ owner: req.user._id })
+    .then((data) => res.send({ data }))
+    .catch(next);
+};
 
-module.exports.deleteMovie = async (req, res, next) => {
-  let movie;
-  try {
-    movie = await Movie.findById(req.params.id)
-      .orFail(new NotFoundError());
-  } catch (error) {
-    return next(error);
-  }
-
-  return movie.owner.toString() === req.user._id
-    ? movie
-      .delete()
-      .then((data) => res.send({ data }))
-      .catch((err) => next(err.name === names.Cast ? new BadRequestError() : err))
-    : next(new ForbiddenError());
+module.exports.deleteMovie = (req, res, next) => {
+  Movie.findById(req.params.movieId)
+    .orFail(() => {
+      throw new NotFoundError();
+    })
+    .then(async (movie) => {
+      if (!movie.owner.equals(req.user._id)) {
+        throw new ForbiddenError();
+      }
+      await movie.remove();
+      return res.send({ message: 'Фильм удалён из Избранного' });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };

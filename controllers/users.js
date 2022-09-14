@@ -76,6 +76,7 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
+      console.log(user._id); // проверяем, что лежит в user._id
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: tokenExpiration.sec });
       res
         .cookie('jwt', token, {
@@ -83,7 +84,8 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: messages.ok });
+        .send({ message: messages.ok })
+        .send({ token }); //
     })
     .catch(() => next(new UnauthorizedError()));
 };

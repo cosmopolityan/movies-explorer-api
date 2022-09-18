@@ -1,5 +1,5 @@
 const { celebrate, CelebrateError, Joi } = require('celebrate');
-const { isValidObjectId } = require('mongoose');
+// const { isValidObjectId } = require('mongoose');
 const { isURL } = require('validator');
 
 const { messages } = require('../support/messages');
@@ -46,14 +46,21 @@ const validateMovie = celebrateJoiBody({
   nameEN: StringRequired,
 });
 
-const validateObjectId = celebrate({
+// я запутался.
+// const validateObjectId = celebrate({
+//   params: Joi.object().keys({
+//     id: StringRequired.custom((v) => {
+//       if (!isValidObjectId(v)) {
+//         throw new CelebrateError(messages.badRequest);
+//       }
+//       return v;
+//     }),
+//   }),
+// });
+
+const validateMovieId = celebrate({
   params: Joi.object().keys({
-    id: StringRequired.custom((v) => {
-      if (!isValidObjectId(v)) {
-        throw new CelebrateError(messages.badRequest);
-      }
-      return v;
-    }),
+    movieId: Joi.string().hex().length(24),
   }),
 });
 
@@ -62,5 +69,6 @@ module.exports = {
   validateLogin,
   validateUserInfo,
   validateMovie,
-  validateObjectId,
+  // validateObjectId,
+  validateMovieId,
 };

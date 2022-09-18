@@ -18,8 +18,10 @@ router.get('/crash-test', () => {
 
 router.post('/signin', validateLogin, login);
 router.post('/signup', validateRegister, createUser);
-router.post('/signout', logout);
 
+router.use(auth);
+
+router.use('/signout', logout);
 router.use('/users', auth, require('./users'));
 router.use('/movies', auth, require('./movies'));
 

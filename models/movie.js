@@ -38,8 +38,9 @@ const movieSchema = new mongoose.Schema(
       ref: 'user',
       required: true,
     },
-    movieId: { // не понимаю в чем проблема
-      ...requiredString,
+    movieId: { // Поле movieId на уровне схемы должно валидироваться как число. Исправлено
+      type: Number,
+      required: true,
     },
     nameRU: {
       ...requiredString,

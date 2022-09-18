@@ -1,7 +1,7 @@
 const Movie = require('../models/movie');
 const { classes, names } = require('../errors/index');
 const { StatusCodes } = require('../support/statusCodes');
-// const messages = require('../support/messages');
+const messages = require('../support/messages');
 const { ForbiddenError } = require('../errors/classes');
 
 const {
@@ -51,6 +51,7 @@ module.exports.getMovies = (req, res, next) => {
     .catch(next);
 };
 
+// Исправить как-то, не удаляется.
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .orFail(() => {
@@ -61,7 +62,7 @@ module.exports.deleteMovie = (req, res, next) => {
         throw new ForbiddenError();
       }
       await movie.remove();
-      return res.send({ message: 'Фильм удалён из Избранного' });
+      return res.send({ message: messages.ok }); // исправлено
     })
     .catch((err) => {
       next(err);

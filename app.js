@@ -10,7 +10,10 @@ const rateLimiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
 const { MONGO } = require('./support/constants');
 
-const { PORT = 3000, HOST = 'localhost' } = process.env;
+const { PORT = 3000 } = process.env;
+// В production-режиме адрес базы данных берётся из process.env.
+// Из окружения следует брать целиком адрес базы, а не только хост.
+// В данной работе адреса будут одинаковые.
 
 const app = express();
 //
@@ -49,4 +52,4 @@ app.use(
   errorHandler,
 );
 
-app.listen(PORT, () => console.log(`API работает на http://${HOST}:${PORT}`));
+app.listen(PORT, () => console.log('API работает где-то точно 100 %'));

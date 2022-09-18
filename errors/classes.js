@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 const { messages } = require('../support/messages');
 
 class BadRequestError extends Error {

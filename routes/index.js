@@ -6,7 +6,7 @@ const auth = require('../middlewares/auth');
 
 const { validateRegister, validateLogin } = require('../middlewares/validation');
 
-const { NotFoundError } = require('../errors/classes'); //
+const NotFoundError = require('../errors/notfounderror');
 
 const { messages } = require('../support/messages');
 

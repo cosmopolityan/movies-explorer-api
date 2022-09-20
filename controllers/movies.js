@@ -1,7 +1,7 @@
 const Movie = require('../models/movie');
 const { names } = require('../errors/index');
 const { StatusCodes } = require('../support/statusCodes');
-const messages = require('../support/messages');
+const { messages } = require('../support/messages');
 const ForbiddenError = require('../errors/forbiddenerror');
 const NotFoundError = require('../errors/notfounderror');
 const BadRequestError = require('../errors/badrequesterror');
@@ -21,9 +21,6 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
   } = req.body;
 
-  // Movie.create({ ...req.body, owner: req.user._id })
-  // не работает почему-то
-
   Movie.create({
     country,
     director,
@@ -36,7 +33,7 @@ module.exports.createMovie = (req, res, next) => {
     movieId,
     nameRU,
     nameEN,
-    owner: req.user._id, //
+    owner: req.user._id,
   })
     .then((data) => res.status(StatusCodes.created).send({ data }))
     .catch((err) => next(err.name === names.Validation ? new BadRequestError() : err));
@@ -48,7 +45,6 @@ module.exports.getMovies = (req, res, next) => {
     .catch(next);
 };
 
-// удаляется, но остается пустой объект
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .orFail(() => {
@@ -58,7 +54,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (!movie.owner.equals(req.user._id)) {
         throw new ForbiddenError();
       }
-      await movie.remove(); // delete тоже не работает
+      await movie.remove();
       return res.send({ message: messages.ok });
     })
     .catch((err) => {

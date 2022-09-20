@@ -11,9 +11,6 @@ const errorHandler = require('./middlewares/errorHandler');
 const { MONGO } = require('./support/constants');
 
 const { PORT = 3000 } = process.env;
-// В production-режиме адрес базы данных берётся из process.env.
-// Из окружения следует брать целиком адрес базы, а не только хост.
-// В данной работе адреса будут одинаковые.
 
 const app = express();
 //

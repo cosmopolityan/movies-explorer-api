@@ -62,7 +62,6 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-// добавить обработку ошибки при дубле email
 module.exports.updateUser = (req, res, next) => {
   const { email, name } = req.body;
 
@@ -95,7 +94,7 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log(user._id); // проверяем, что лежит в user._id
+      console.log(user._id);
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: tokenExpiration.sec });
       res
         .cookie('jwt', token, {
@@ -105,7 +104,6 @@ module.exports.login = (req, res, next) => {
         })
         .send({ message: messages.ok });
     })
-    // .catch(() => next(new UnauthorizedError())); //
     .catch((err) => {
       next(err);
     });

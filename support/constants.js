@@ -1,4 +1,3 @@
-// const { NODE_ENV, JWT_SECRET, HOST = 'localhost' } = process.env;
 const { NODE_ENV, JWT_SECRET, MONGO } = process.env;
 
 const constants = {

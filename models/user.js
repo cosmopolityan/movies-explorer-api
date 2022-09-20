@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 
 const requiredString = require('./utils/requiredString');
 const validate = require('./utils/validate');
-// const UnauthorizedError = require('../errors/unauthorizederror');
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,7 +15,7 @@ const userSchema = new mongoose.Schema(
       ...requiredString,
       select: false,
     },
-    name: { // ???
+    name: {
       ...requiredString,
       minlength: 2,
       maxlength: 30,
@@ -27,7 +26,6 @@ const userSchema = new mongoose.Schema(
 
 const rejectInvalidCredentials = () => Promise.reject(new Error('Неверный логин и/или пароль'));
 
-// пришлось поменять название переменной на enterPass, чтобы было < 105 в строке
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, enterPass) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
@@ -44,8 +42,6 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
           return user;
         });
     });
-  // .catch(() => next(new UnauthorizedError()));
 };
-//
 
 module.exports = mongoose.model('user', userSchema);

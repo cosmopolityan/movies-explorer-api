@@ -38,7 +38,7 @@ const movieSchema = new mongoose.Schema(
       ref: 'user',
       required: true,
     },
-    movieId: { // Поле movieId на уровне схемы должно валидироваться как число. Исправлено
+    movieId: { // ???
       type: Number,
       required: true,
     },

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const requiredString = require('./utils/requiredString');
 const validate = require('./utils/validate');
-const UnauthorizedError = require('../errors/unauthorizederror');
+// const UnauthorizedError = require('../errors/unauthorizederror');
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
       ...requiredString,
       select: false,
     },
-    name: { // Поле name должно валидироваться по длине в соответствии с критериями. Тут вроде ок.
+    name: { // ???
       ...requiredString,
       minlength: 2,
       maxlength: 30,
@@ -28,23 +28,23 @@ const userSchema = new mongoose.Schema(
 const rejectInvalidCredentials = () => Promise.reject(new Error('Неверный логин и/или пароль'));
 
 // пришлось поменять название переменной на enterPass, чтобы было < 105 в строке
-userSchema.statics.findUserByCredentials = function findUserByCredentials(email, enterPass, next) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, enterPass) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return rejectInvalidCredentials(); // исправлено
+        return rejectInvalidCredentials();
       }
 
       return bcrypt.compare(enterPass, user.password)
         .then((matched) => {
           if (!matched) {
-            return rejectInvalidCredentials(); // исправлено
+            return rejectInvalidCredentials();
           }
 
           return user;
         });
-    })
-    .catch(() => next(new UnauthorizedError()));
+    });
+  // .catch(() => next(new UnauthorizedError()));
 };
 //
 

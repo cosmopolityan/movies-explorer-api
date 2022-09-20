@@ -21,11 +21,11 @@ router.post('/signup', validateRegister, createUser);
 
 router.use(auth);
 
-router.use('/signout', logout);
+router.use('/signout', auth, logout);
 router.use('/users', auth, require('./users'));
 router.use('/movies', auth, require('./movies'));
 
-router.use('*', () => {
+router.use('*', auth, () => {
   throw new NotFoundError(messages.notFound);
 });
 

@@ -21,6 +21,9 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
   } = req.body;
 
+  // Movie.create({ ...req.body, owner: req.user._id })
+  // не работает почему-то
+
   Movie.create({
     country,
     director,
@@ -55,7 +58,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (!movie.owner.equals(req.user._id)) {
         throw new ForbiddenError();
       }
-      await movie.remove();
+      await movie.remove(); // delete тоже не работает
       return res.send({ message: messages.ok });
     })
     .catch((err) => {

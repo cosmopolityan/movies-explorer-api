@@ -79,7 +79,15 @@ module.exports.updateUser = (req, res, next) => {
       }
       next(err);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === names.Mongo && err.code === StatusCodes.mongo) {
+        throw new ConflictError();
+      }
+      if (err.name === names.Validation) {
+        throw new BadRequestError();
+      }
+      next(err);
+    });
 };
 
 module.exports.login = (req, res, next) => {
@@ -98,12 +106,11 @@ module.exports.login = (req, res, next) => {
         .send({ message: messages.ok });
     })
     // .catch(() => next(new UnauthorizedError())); //
-    .catch(() => {
-      next();
+    .catch((err) => {
+      next(err);
     });
 };
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (req, res) => {
   res.clearCookie('jwt').send({ message: messages.ok });
-  next();
 };

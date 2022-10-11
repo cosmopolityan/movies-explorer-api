@@ -11,6 +11,8 @@ const NotFoundError = require('../errors/notfounderror');
 const BadRequestError = require('../errors/badrequesterror');
 const UnauthorizedError = require('../errors/unauthorizederror');
 
+const { JWT } = require('../support/config');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 // const options = {
@@ -228,7 +230,7 @@ module.exports.login = (req, res, next) => {
           } else {
             const token = jwt.sign(
               { _id: user._id },
-              NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-dev-secret', // JWT
+              NODE_ENV === 'production' ? JWT_SECRET : JWT, // JWT
               { expiresIn: '7d' },
             );
             res

@@ -101,7 +101,8 @@ module.exports.login = (req, res, next) => {
           maxAge: tokenExpiration.ms,
           httpOnly: true,
           // sameSite: true,
-          sameSite: 'None',
+          // sameSite: 'None',
+          sameSite: 'none',
           secure: true,
         })
         .send({ message: messages.ok });

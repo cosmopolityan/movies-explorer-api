@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-const { createUser, login, logout } = require('../controllers/users');
+// const { createUser, login, logout } = require('../controllers/users');
+const { createUser, login } = require('../controllers/users');
 
 const auth = require('../middlewares/auth');
 
@@ -21,7 +22,8 @@ router.post('/signup', validateRegister, createUser);
 
 router.use(auth);
 
-router.use('/signout', auth, logout);
+// router.use('/signout', auth, logout);
+router.use('/signout', auth);
 router.use('/users', auth, require('./users'));
 router.use('/movies', auth, require('./movies'));
 

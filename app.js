@@ -9,6 +9,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const rateLimiter = require('./middlewares/rateLimiter');
 const errorHandler = require('./middlewares/errorHandler');
 const { MONGO } = require('./support/constants');
+// const mainRouter = require('./routes/index');
 
 const { PORT = 3000 } = process.env;
 
@@ -40,7 +41,8 @@ app.use(
   express.json(),
 );
 
-app.use('/', require('./routes'));
+app.use('/', require('./routes')); //
+// app.use('/', mainRouter);
 
 app.use(errorLogger);
 

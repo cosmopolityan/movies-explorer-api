@@ -41,7 +41,7 @@ module.exports.getCurrentUser = (req, res, next) => {
     .orFail(() => {
       next(new NotFoundError());
     })
-    .then((user) => res.status(200).send(user))
+    .then((data) => res.status(200).send(data)) // user -> data
     .catch((err) => {
       if (err.name === names.Cast) {
         next(new BadRequestError());

@@ -106,7 +106,7 @@ module.exports.createUser = (req, res, next) => {
           name,
         }))
         .then(({ _id }) => res.status(201).send({
-          message: messages.ok,
+          message: messages.ok, //
           user: { _id, email, name },
         }))
         .catch((err) => {

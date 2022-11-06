@@ -35,13 +35,15 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
     owner: req.user._id,
   })
-    .then((data) => res.status(StatusCodes.created).send({ data }))
+    // .then((data) => res.status(StatusCodes.created).send({ data }))
+    .then((movie) => res.status(StatusCodes.created).send(movie))
     .catch((err) => next(err.name === names.Validation ? new BadRequestError() : err));
 };
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
-    .then((data) => res.send({ data }))
+    // .then((data) => res.send({ data }))
+    .then((movies) => res.send(movies))
     .catch(next);
 };
 
